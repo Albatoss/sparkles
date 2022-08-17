@@ -33,3 +33,8 @@ yarn-debug.log*
 
 # Ignore persisted failures from RSpec
 spec/examples.txt
+
+#IDE
+*.vscode-workspace
+.vscode
+
