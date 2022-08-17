@@ -46,7 +46,6 @@ class SparkleWorker < ApplicationWorker
     begin
       response = team.api_client.users_info(user: options[:slack_sparklee_id])
       slack_sparklee = Slack::User.from_api_response(response.user)
-      can_sparkle = false
 
       #Find the sparkler
       sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
@@ -95,7 +94,6 @@ class SparkleWorker < ApplicationWorker
       message = history.messages.find { |m| m.user == sparkler.slack_id && m.text.include?(search_text) }
       message = team.api_client.chat_getPermalink(channel: channel.slack_id, message_ts: message.ts)
 
-      if sparklee.slack_id ==
       # Create the sparkle
       sparklee.sparkles.create!(
         sparkler: sparkler,
@@ -105,8 +103,7 @@ class SparkleWorker < ApplicationWorker
       )
 
       prefix = WORDS_OF_ENCOURAGEMENT.sample + ('!' * rand(1..3))
-      text =
-        if !leaderboard_enabled
+      text = if !leaderboard_enabled
           "#{prefix} <@#{sparklee.slack_id}> just got a :sparkle:!"
         elsif sparklee.sparkles.count == 1
           ":tada: <@#{sparklee.slack_id}> just got their first :sparkle:! :tada:"
