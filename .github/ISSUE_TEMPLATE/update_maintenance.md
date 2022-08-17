@@ -1,6 +1,6 @@
 ---
 name: Update or Maintenance chore
-about: :hankey: that needs doin'
+about: Chores that needs doin
 title: ''
 labels: maintenance
 assignees: ''
