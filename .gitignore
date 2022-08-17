@@ -38,3 +38,6 @@ spec/examples.txt
 *.vscode-workspace
 .vscode
 
+#MACOS
+.DS_Store
+
