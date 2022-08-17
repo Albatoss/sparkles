@@ -8,7 +8,7 @@ module Slack
         *Get someone's most recent sparkles:* `/sparkle stats @user`
         *Adjust your experience with Sparkles:* `/sparkle settings`
 
-        You can also see the entire leaderboard and details on every sparkle ever given by signing in at *<https://sparkles.lol>*! Have fun sparkling :sparkles:
+        You can also see the entire leaderboard and details on every sparkle ever given by signing in at *<https://secret-depths-77457.herokuapp.com>*! Have fun sparkling :sparkles:
       USAGE
 
       def self.execute(params)
