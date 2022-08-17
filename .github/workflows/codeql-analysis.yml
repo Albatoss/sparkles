@@ -8,6 +8,7 @@ on:
   schedule:
     # Run at 8am PST (or 9am PDT) each Monday
     - cron: '0 16 * * 1'
+  workflow_dispatch:
 
 jobs:
   analyze:
