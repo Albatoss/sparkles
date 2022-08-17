@@ -46,6 +46,10 @@ class SparkleWorker < ApplicationWorker
     begin
       response = team.api_client.users_info(user: options[:slack_sparklee_id])
       slack_sparklee = Slack::User.from_api_response(response.user)
+      can_sparkle = false
+
+      #Find the sparkler
+      sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
 
       if slack_sparklee.bot?
         text = if slack_sparklee.slack_id == team.sparklebot_id
@@ -57,14 +61,19 @@ class SparkleWorker < ApplicationWorker
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end
 
+      if sparkler.slack_id == slack_sparklee.slack_id
+        text = "\n\nWhoa whoa whoa you can't sparkle yourself, <@#{sparkler.slack_id}>!"
+
+        return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
+      end
+
       if slack_sparklee.restricted?
         text = "Oops, I don't work with guest users or in shared channels right now :sweat: Sorry about that!"
 
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end
 
-      # Find the sparkler, adding them to our database if we haven't yet
-      sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
+      # Add the Sparkler to our database if we haven't yet
       if sparkler.new_record?
         response = team.api_client.users_info(user: sparkler.slack_id)
         slack_sparkler = Slack::User.from_api_response(response.user)
@@ -86,6 +95,7 @@ class SparkleWorker < ApplicationWorker
       message = history.messages.find { |m| m.user == sparkler.slack_id && m.text.include?(search_text) }
       message = team.api_client.chat_getPermalink(channel: channel.slack_id, message_ts: message.ts)
 
+      if sparklee.slack_id ==
       # Create the sparkle
       sparklee.sparkles.create!(
         sparkler: sparkler,
@@ -96,9 +106,7 @@ class SparkleWorker < ApplicationWorker
 
       prefix = WORDS_OF_ENCOURAGEMENT.sample + ('!' * rand(1..3))
       text =
-        if sparklee.slack_id == sparkler.slack_id
-          "\n\nWhoa whoa whoa you can't sparkle yourself, <@#{sparkler.slack_id}>!"
-        elsif !leaderboard_enabled
+        if !leaderboard_enabled
           "#{prefix} <@#{sparklee.slack_id}> just got a :sparkle:!"
         elsif sparklee.sparkles.count == 1
           ":tada: <@#{sparklee.slack_id}> just got their first :sparkle:! :tada:"
