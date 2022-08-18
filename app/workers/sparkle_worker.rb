@@ -70,9 +70,11 @@ class SparkleWorker < ApplicationWorker
         sparkler.update!(slack_sparkler.attributes)
       end
 
-      # Find the sparklee, adding them to our database if we haven't yet
+      # Find the sparklee, adding them to our database if we haven't yet & removing the ability to sparkle yourself
       sparklee = team.users.find_or_initialize_by(slack_id: options[:slack_sparklee_id])
-      sparklee.update!(slack_sparklee.attributes) if sparklee.new_record?
+      if sparklee != sparkler
+        sparklee.update!(slack_sparklee.attributes) if sparklee.new_record?
+      end
 
       # Determine whether or not we should be showing leaderboard text in our response
       leaderboard_enabled = team.leaderboard_enabled? && sparklee.leaderboard_enabled?
@@ -102,7 +104,7 @@ class SparkleWorker < ApplicationWorker
       end
 
       if sparklee == sparkler
-        text += "\n\nNothing wrong with a little pat on the back, eh <@#{sparkler.slack_id}>?"
+        text += "\n\nWhoa whoa whoa you can't sparkle yourself, <@#{sparkler.slack_id}>!"
       end
 
       team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
