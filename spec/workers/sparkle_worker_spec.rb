@@ -109,14 +109,14 @@ RSpec.describe SparkleWorker do
   context "when someone gives themselves a sparkle" do
     let(:sparklee) { sparkler }
 
-    it "says theres nothing wrong with a pat on the back :)" do
+    it "says whoa whoa whoa no self-sparkling" do
       expect(team.api_client).to receive(:chat_postMessage).with(
         channel: channel.slack_id,
-        text: a_string_including("Nothing wrong with a little pat on the back, eh <@#{sparklee.slack_id}>?")
+        text: a_string_including("Whoa whoa whoa no self-sparkling, <@#{sparklee.slack_id}>!")
       ).and_call_original
 
-      VCR.use_cassette("sparkle_user_pat_on_the_back") do
-        expect { worker }.to change { Sparkle.count }.by(1)
+      VCR.use_cassette("sparkle_user_self_sparkle") do
+        expect { worker }.not_to change { Sparkle.count }
       end
     end
   end
