@@ -73,7 +73,7 @@ class StatsWorker < ApplicationWorker
       ]
     }
 
-    { blocks: blocks, response_type: :ephemeral }
+    {blocks: blocks, response_type: :ephemeral}
   end
 
   def user_stats_for(team:, current_user:, slack_user_id:)
@@ -146,7 +146,7 @@ class StatsWorker < ApplicationWorker
       }
 
       if sparkle.reason.present? && sparkle.visible_to?(current_user)
-        block[:elements] << { type: :mrkdwn, text: sparkle.reason }
+        block[:elements] << {type: :mrkdwn, text: sparkle.reason}
       end
 
       blocks << block

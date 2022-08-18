@@ -2,40 +2,40 @@
 
 class SparkleWorker < ApplicationWorker
   WORDS_OF_ENCOURAGEMENT = [
-    'Amazing',
-    'Aw yiss',
-    'Awesome',
-    'Bam',
-    'Beautiful',
-    'Boo-yah',
-    'Bravo',
-    'Cheers',
-    'Cool',
-    'Excellent',
-    'Exciting',
-    'Fabulous',
-    'Fantastic',
-    'Good news, everyone',
-    'Great',
-    'Hell yeah',
-    'Hooray',
-    'Oh-ho',
-    'Oh yeah',
-    'Rad',
-    'Rock and roll',
-    'Shut the front door',
-    'Sweet',
-    'Tada',
-    'Whee',
-    'Woah',
-    'Woo',
-    'Woo-hoo',
-    'Woot',
-    'Wow',
-    'Yay',
-    'Yeah',
-    'Yesss',
-    'Yippee'
+    "Amazing",
+    "Aw yiss",
+    "Awesome",
+    "Bam",
+    "Beautiful",
+    "Boo-yah",
+    "Bravo",
+    "Cheers",
+    "Cool",
+    "Excellent",
+    "Exciting",
+    "Fabulous",
+    "Fantastic",
+    "Good news, everyone",
+    "Great",
+    "Hell yeah",
+    "Hooray",
+    "Oh-ho",
+    "Oh yeah",
+    "Rad",
+    "Rock and roll",
+    "Shut the front door",
+    "Sweet",
+    "Tada",
+    "Whee",
+    "Woah",
+    "Woo",
+    "Woo-hoo",
+    "Woot",
+    "Wow",
+    "Yay",
+    "Yeah",
+    "Yesss",
+    "Yippee"
   ].freeze
 
   def perform(options)
@@ -47,15 +47,15 @@ class SparkleWorker < ApplicationWorker
       response = team.api_client.users_info(user: options[:slack_sparklee_id])
       slack_sparklee = Slack::User.from_api_response(response.user)
 
-      #Find the sparkler
+      # Find the sparkler
       sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
 
       if slack_sparklee.bot?
         text = if slack_sparklee.slack_id == team.sparklebot_id
-                 "Aww, thank you, <@#{options[:slack_sparkler_id]}>! That's so thoughtful, but I'm already swimming in sparkles! I couldn't possibly take one of yours, but I apprecate the gesture nonetheless :sparkles:"
-               else
-                 "It's so nice that you want to recognize one of my fellow bots! They've all politely declined to join the fun of sparkle hoarding, but I'll pass along your thanks."
-               end
+          "Aww, thank you, <@#{options[:slack_sparkler_id]}>! That's so thoughtful, but I'm already swimming in sparkles! I couldn't possibly take one of yours, but I apprecate the gesture nonetheless :sparkles:"
+        else
+          "It's so nice that you want to recognize one of my fellow bots! They've all politely declined to join the fun of sparkle hoarding, but I'll pass along your thanks."
+        end
 
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end
@@ -102,14 +102,14 @@ class SparkleWorker < ApplicationWorker
         permalink: message.permalink
       )
 
-      prefix = WORDS_OF_ENCOURAGEMENT.sample + ('!' * rand(1..3))
+      prefix = WORDS_OF_ENCOURAGEMENT.sample + ("!" * rand(1..3))
       text = if !leaderboard_enabled
-          "#{prefix} <@#{sparklee.slack_id}> just got a :sparkle:!"
-        elsif sparklee.sparkles.count == 1
-          ":tada: <@#{sparklee.slack_id}> just got their first :sparkle:! :tada:"
-        else
-          "#{prefix} <@#{sparklee.slack_id}> now has #{sparklee.sparkles.count} sparkles :sparkles:"
-        end
+        "#{prefix} <@#{sparklee.slack_id}> just got a :sparkle:!"
+      elsif sparklee.sparkles.count == 1
+        ":tada: <@#{sparklee.slack_id}> just got their first :sparkle:! :tada:"
+      else
+        "#{prefix} <@#{sparklee.slack_id}> now has #{sparklee.sparkles.count} sparkles :sparkles:"
+      end
 
       team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
 
@@ -122,7 +122,7 @@ class SparkleWorker < ApplicationWorker
     rescue Slack::Web::Api::Errors::UserNotFound
       text = "I couldn't find the teammate you're trying to sparkle :sweat: Make sure you're using a highlighted @mention and that they aren't a guest member!"
       team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
-    rescue StandardError
+    rescue
       # Just re-raise the error if this job has already been retried.
       raise if options[:retried]
 
