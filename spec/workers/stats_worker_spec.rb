@@ -68,7 +68,7 @@ RSpec.describe StatsWorker do
                 },
                 {
                   type: :mrkdwn,
-                  text: "Sign in to <https://sparkles.lol/> to see the full leaderboard!"
+                  text: "Sign in to <https://secret-depths-77457.herokuapp.com/> to see the full leaderboard!"
                 }
               ]
             }
@@ -106,7 +106,7 @@ RSpec.describe StatsWorker do
                     alt_text: "sparkles"
                   },
                   {
-                    text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!",
+                    text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!",
                     type: :mrkdwn
                   }
                 ],
@@ -148,7 +148,7 @@ RSpec.describe StatsWorker do
                   alt_text: "sparkles"
                 },
                 {
-                  text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
+                  text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
                   type: :mrkdwn
                 }
               ],
@@ -191,7 +191,7 @@ RSpec.describe StatsWorker do
                     alt_text: "sparkles"
                   },
                   {
-                    text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
+                    text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
                     type: :mrkdwn
                   }
                 ],
@@ -228,7 +228,7 @@ RSpec.describe StatsWorker do
                     alt_text: "sparkles"
                   },
                   {
-                    text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
+                    text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
                     type: :mrkdwn
                   }
                 ],
@@ -265,7 +265,7 @@ RSpec.describe StatsWorker do
                     alt_text: "sparkles"
                   },
                   {
-                    text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
+                    text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{teammate.slack_id}|sparkles.lol> to see the rest!",
                     type: :mrkdwn
                   }
                 ],
@@ -306,7 +306,7 @@ RSpec.describe StatsWorker do
                     alt_text: "sparkles"
                   },
                   {
-                    text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!",
+                    text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!",
                     type: :mrkdwn
                   }
                 ],
