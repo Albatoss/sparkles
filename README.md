@@ -58,6 +58,21 @@ If you're an admin for your Slack team, you have a couple additional options:
 
 Both the slack application and [sparkles.lol](https://sparkles.lol) are free to use! Except for the reasons given for sparkles, we never store messages from Slack itself. However, maybe you work for an organization with strict rules about what data is allowed into or out of Slack. If that's the case, Sparkles is easy to host yourself! In fact, with only a little bit of configuration, you can host Sparkles on Heroku or with Dokku.
 
+### Running Locally
+### Running Locally
+
+1. setup DB: `bundle exec rake db:create db:migrate`
+1. install yarn: `brew install yarn`
+1. install redis: `brew install redis`
+1. `bundle install`
+1. `npm install`
+1. start postgres: `brew services start postgresql`
+1. start redis: `brew services start redis`
+1. then run: `bin/rails server`
+
+Encryption related errors usually are solved be recreating credentials, assuming you have access to the correct `config/master.key`
+
+
 ### Requirements
 
 Sparkles is a Rails application using the following dependencies:
