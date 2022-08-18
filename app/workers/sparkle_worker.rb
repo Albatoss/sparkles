@@ -61,7 +61,7 @@ class SparkleWorker < ApplicationWorker
       end
 
       if sparkler.slack_id == slack_sparklee.slack_id
-        text = "\n\nWhoa whoa whoa you can't sparkle yourself, <@#{sparkler.slack_id}>!"
+        text = "Whoa whoa whoa no self-sparkling, <@#{sparkler.slack_id}>!"
 
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end

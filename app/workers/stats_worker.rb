@@ -68,12 +68,12 @@ class StatsWorker < ApplicationWorker
         },
         {
           type: :mrkdwn,
-          text: "Sign in to <https://sparkles.lol/> to see the full leaderboard!"
+          text: "Sign in to <https://secret-depths-77457.herokuapp.com/> to see the full leaderboard!"
         }
       ]
     }
 
-    {blocks: blocks, response_type: :ephemeral}
+    { blocks: blocks, response_type: :ephemeral }
   end
 
   def user_stats_for(team:, current_user:, slack_user_id:)
@@ -126,9 +126,7 @@ class StatsWorker < ApplicationWorker
       end
 
       time_text = "#{time_ago_in_words(sparkle.created_at)} ago"
-      if !sparkle.channel.private? && sparkle.permalink.present?
-        time_text = "<#{sparkle.permalink}|#{time_text}>"
-      end
+      time_text = "<#{sparkle.permalink}|#{time_text}>" if !sparkle.channel.private? && sparkle.permalink.present?
 
       text = "Sparkled by <@#{sparkle.sparkler.slack_id}> #{time_text} in #{channel_text}"
 
@@ -148,7 +146,7 @@ class StatsWorker < ApplicationWorker
       }
 
       if sparkle.reason.present? && sparkle.visible_to?(current_user)
-        block[:elements] << {type: :mrkdwn, text: sparkle.reason}
+        block[:elements] << { type: :mrkdwn, text: sparkle.reason }
       end
 
       blocks << block
@@ -165,7 +163,7 @@ class StatsWorker < ApplicationWorker
         },
         {
           type: :mrkdwn,
-          text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!"
+          text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!"
         }
       ]
     }
