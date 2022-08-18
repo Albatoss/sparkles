@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SparkleWorker < ApplicationWorker
   WORDS_OF_ENCOURAGEMENT = [
     "Amazing",
@@ -45,6 +47,9 @@ class SparkleWorker < ApplicationWorker
       response = team.api_client.users_info(user: options[:slack_sparklee_id])
       slack_sparklee = Slack::User.from_api_response(response.user)
 
+      # Find the sparkler
+      sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
+
       if slack_sparklee.bot?
         text = if slack_sparklee.slack_id == team.sparklebot_id
           "Aww, thank you, <@#{options[:slack_sparkler_id]}>! That's so thoughtful, but I'm already swimming in sparkles! I couldn't possibly take one of yours, but I apprecate the gesture nonetheless :sparkles:"
@@ -55,14 +60,19 @@ class SparkleWorker < ApplicationWorker
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end
 
+      if sparkler.slack_id == slack_sparklee.slack_id
+        text = "Whoa whoa whoa no self-sparkling, <@#{sparkler.slack_id}>!"
+
+        return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
+      end
+
       if slack_sparklee.restricted?
         text = "Oops, I don't work with guest users or in shared channels right now :sweat: Sorry about that!"
 
         return team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
       end
 
-      # Find the sparkler, adding them to our database if we haven't yet
-      sparkler = team.users.find_or_initialize_by(slack_id: options[:slack_sparkler_id])
+      # Add the Sparkler to our database if we haven't yet
       if sparkler.new_record?
         response = team.api_client.users_info(user: sparkler.slack_id)
         slack_sparkler = Slack::User.from_api_response(response.user)
@@ -70,11 +80,9 @@ class SparkleWorker < ApplicationWorker
         sparkler.update!(slack_sparkler.attributes)
       end
 
-      # Find the sparklee, adding them to our database if we haven't yet & removing the ability to sparkle yourself
+      # Find the sparklee, adding them to our database if we haven't yet
       sparklee = team.users.find_or_initialize_by(slack_id: options[:slack_sparklee_id])
-      if sparklee != sparkler
-        sparklee.update!(slack_sparklee.attributes) if sparklee.new_record?
-      end
+      sparklee.update!(slack_sparklee.attributes) if sparklee.new_record?
 
       # Determine whether or not we should be showing leaderboard text in our response
       leaderboard_enabled = team.leaderboard_enabled? && sparklee.leaderboard_enabled?
@@ -101,10 +109,6 @@ class SparkleWorker < ApplicationWorker
         ":tada: <@#{sparklee.slack_id}> just got their first :sparkle:! :tada:"
       else
         "#{prefix} <@#{sparklee.slack_id}> now has #{sparklee.sparkles.count} sparkles :sparkles:"
-      end
-
-      if sparklee == sparkler
-        text += "\n\nWhoa whoa whoa you can't sparkle yourself, <@#{sparkler.slack_id}>!"
       end
 
       team.api_client.chat_postMessage(channel: channel.slack_id, text: text)
