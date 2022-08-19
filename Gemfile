@@ -16,10 +16,10 @@ gem "puma", "~> 5.6"
 gem "sass-rails", ">= 6"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-#gem "webpacker", "~> 5.0"
+# gem "webpacker", "~> 5.0"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-#gem "turbolinks", "~> 5"
+# gem "turbolinks", "~> 5"
 
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.7"
@@ -34,8 +34,8 @@ gem "jwt"
 gem "slack_markdown"
 
 # Use Sidekiq for background job processing
-#gem "sidekiq"
-gem 'sidekiq', '~> 6.5', '>= 6.5.4'
+# gem "sidekiq"
+gem "sidekiq", "~> 6.5", ">= 6.5.4"
 gem "sidekiq-scheduler"
 
 # Paginate through sparkles and the leaderboard with Kaminari
@@ -67,8 +67,8 @@ group :development do
 
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  #gem "rack-mini-profiler", "~> 2.0"
-  gem 'rack-mini-profiler', '~> 3.0'
+  # gem "rack-mini-profiler", "~> 2.0"
+  gem "rack-mini-profiler", "~> 3.0"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
