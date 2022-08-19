@@ -16,7 +16,7 @@ class StatsWorker < ApplicationWorker
 
     http.post(options[:response_url], result)
   end
-
+  require "faraday/retry"
   def http
     @http ||= Faraday.new do |f|
       f.request :json # Encode request bodies as JSON
@@ -68,7 +68,7 @@ class StatsWorker < ApplicationWorker
         },
         {
           type: :mrkdwn,
-          text: "Sign in to <https://sparkles.lol/> to see the full leaderboard!"
+          text: "Sign in to <https://secret-depths-77457.herokuapp.com/> to see the full leaderboard!"
         }
       ]
     }
@@ -126,9 +126,7 @@ class StatsWorker < ApplicationWorker
       end
 
       time_text = "#{time_ago_in_words(sparkle.created_at)} ago"
-      if !sparkle.channel.private? && sparkle.permalink.present?
-        time_text = "<#{sparkle.permalink}|#{time_text}>"
-      end
+      time_text = "<#{sparkle.permalink}|#{time_text}>" if !sparkle.channel.private? && sparkle.permalink.present?
 
       text = "Sparkled by <@#{sparkle.sparkler.slack_id}> #{time_text} in #{channel_text}"
 
@@ -165,7 +163,7 @@ class StatsWorker < ApplicationWorker
         },
         {
           type: :mrkdwn,
-          text: "Visit <https://sparkles.lol/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!"
+          text: "Visit <https://secret-depths-77457.herokuapp.com/stats/#{team.slack_id}/#{user.slack_id}|sparkles.lol> to see the rest!"
         }
       ]
     }

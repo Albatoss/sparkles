@@ -1,7 +1,7 @@
 class ActionDispatch::Cookies::CookieJar
-  def encrypted() = self
+  def encrypted = self
 
-  def signed() = self
+  def signed = self
 
-  def permanent() = self
+  def permanent = self
 end
