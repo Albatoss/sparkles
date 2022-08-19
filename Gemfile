@@ -73,3 +73,4 @@ group :development do
 end
 
 gem "faraday-retry", "~> 2.0"
+gem "importmap-rails"

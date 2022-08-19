@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2021_11_25_174317) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_11_25_174317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,8 +21,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_11_25_174317) do
     t.boolean "private", default: false, null: false
     t.boolean "archived", default: false, null: false
     t.boolean "deleted", default: false, null: false
-    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
-    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
     t.boolean "shared", default: false, null: false
     t.boolean "read_only", default: false, null: false
     t.index ["slack_team_id", "slack_id"], name: "index_channels_on_slack_team_id_and_slack_id", unique: true
@@ -32,8 +31,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_11_25_174317) do
   create_table "sparkles", force: :cascade do |t|
     t.string "reason"
     t.string "permalink"
-    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
-    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
     t.bigint "sparklee_id", null: false
     t.bigint "sparkler_id", null: false
     t.bigint "channel_id", null: false
@@ -48,8 +47,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_11_25_174317) do
     t.string "slack_token", null: false
     t.string "sparklebot_id", null: false
     t.string "icon_url"
-    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
-    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
     t.string "slack_feed_channel_id"
     t.boolean "leaderboard_enabled", default: true, null: false
     t.boolean "uninstalled", default: false, null: false
@@ -65,8 +64,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_11_25_174317) do
     t.string "image_url"
     t.boolean "deactivated", default: false, null: false
     t.integer "sparkles_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
-    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
     t.boolean "team_admin", default: false, null: false
     t.boolean "leaderboard_enabled", default: true, null: false
     t.index ["slack_team_id", "slack_id"], name: "index_users_on_slack_team_id_and_slack_id", unique: true
