@@ -2,8 +2,8 @@
   "name": "sparkles",
   "private": true,
   "dependencies": {
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.3",
+    "@rails/ujs": "^7.0.0",
+    "@rails/webpacker": "^5.4.3",
     "localtunnel": "^2.0.2",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
