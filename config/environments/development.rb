@@ -18,22 +18,21 @@ Rails.application.configure do
   # Run rails dev:cache to toggle caching.
   # if Rails.root.join('tmp', 'caching-dev.txt').exist?
   #  config.action_controller.perform_caching = true
-  #  config.action_controller.enable_fragment_cache_logging = true#
-  #
-  #    config.cache_store = :memory_store
-  #    config.public_file_server.headers = {
-  #      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-  #    }
-  #  else
-  #    config.action_controller.perform_caching = false
-  #
-  #    config.cache_store = :null_store
-  #  end
-
+  #  config.action_controller.enable_fragment_cache_logging = true
   # Enable caching with Redis.
   config.cache_store = :redis_cache_store, {
     url: "redis://localhost:6379/1"
   }
+
+  #   config.cache_store = :memory_store
+  #   config.public_file_server.headers = {
+  #     'Cache-Control' => "public, max-age=#{2.days.to_i}"
+  #  }
+  # else
+  #  config.action_controller.perform_caching = false
+  #
+  #    config.cache_store = :null_store
+  #  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
