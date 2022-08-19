@@ -1,9 +1,9 @@
 const path    = require("path")
 const webpack = require("webpack")
+const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 module.exports = {
-  mode: "production",
-  devtool: "source-map",
+  mode,
   entry: {
     application: "./app/javascript/application.js"
   },
@@ -11,6 +11,9 @@ module.exports = {
     filename: "[name].js",
     sourceMapFilename: "[file].map",
     path: path.resolve(__dirname, '..','..', 'app/assets/builds'),
+  },
+  optimization: {
+    moduleIds: 'hashed'
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
