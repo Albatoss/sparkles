@@ -1,5 +1,0 @@
-:schedule:
-  DailySyncWorker:
-    every:
-    - '1d'
-    - first: :now
