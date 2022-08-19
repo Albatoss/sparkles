@@ -39,6 +39,7 @@ spec/examples.txt
 .vscode
 .idea/*
 
+
 #MACOS
 .DS_Store
 
