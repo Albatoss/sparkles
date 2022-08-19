@@ -37,7 +37,8 @@ spec/examples.txt
 #IDE
 *.vscode-workspace
 .vscode
-.idea
+.idea/*
+
 
 #MACOS
 .DS_Store
