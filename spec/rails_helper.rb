@@ -21,19 +21,19 @@ VCR.configure do |c|
 
   # Make sure to filter out any OAuth Bearer tokens from specs
   c.filter_sensitive_data("<SLACK_TOKEN>") do |interaction|
-    if (match = interaction.response.body.match /(xoxb-[\w\-]+)/)
+    if (match = interaction.response.body.match(/(xoxb-[\w\-]+)/))
       match.captures.first
     end
   end
 
   c.filter_sensitive_data("<SLACK_TOKEN>") do |interaction|
-    if (match = interaction.response.body.match /(xoxp-[\w\-]+)/)
+    if (match = interaction.response.body.match(/(xoxp-[\w\-]+)/))
       match.captures.first
     end
   end
 
   c.filter_sensitive_data("<SLACK_TOKEN>") do |interaction|
-    if (match = interaction.request.body.match /token=(xox[bp]-[\w\-]+)/)
+    if (match = interaction.request.body.match(/token=(xox[bp]-[\w\-]+)/))
       match.captures.first
     end
   end
