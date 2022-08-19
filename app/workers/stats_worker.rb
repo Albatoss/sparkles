@@ -16,7 +16,7 @@ class StatsWorker < ApplicationWorker
 
     http.post(options[:response_url], result)
   end
-require 'faraday/retry'
+  require "faraday/retry"
   def http
     @http ||= Faraday.new do |f|
       f.request :json # Encode request bodies as JSON
