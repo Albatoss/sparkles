@@ -47,6 +47,8 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # Use a different cache store in production.
+
   # Use Redis to cache in production.
   config.cache_store = :redis_cache_store, {
     url: ENV["REDIS_CACHE_URL"],
@@ -56,6 +58,11 @@ Rails.application.configure do
       Sentry.capture_exception(exception, level: "warning", tags: {method: method, returning: returning})
     }
   }
+  # config.cache_store = :mem_cache_store
+
+  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # config.active_job.queue_adapter     = :resque
+  # config.active_job.queue_name_prefix = "sparkles_production"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
