@@ -96,6 +96,8 @@ GEM
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
     faraday-net_http (3.0.0)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     ffi (1.15.5)
     fugit (1.5.3)
       et-orbi (~> 1, >= 1.2.7)
@@ -331,6 +333,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   factory_bot_rails
   faker
+  faraday-retry (~> 2.0)
   jwt
   kaminari
   listen (~> 3.3)
