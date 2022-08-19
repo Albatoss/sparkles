@@ -55,13 +55,13 @@ jobs:
       - name: Prepare test database
         run: |
           bin/rails db:prepare
-
-      - name: Compile JavaScript packs
-        env:
-          NODE_ENV: test
-        run: |
-          bin/rails webpacker:install
-          bin/rails webpacker:compile
+# no longer necessary, removed all javascript
+#      - name: Compile JavaScript packs
+#        env:
+#          NODE_ENV: test
+#        run: |
+#          bin/rails webpacker:install
+#          bin/rails webpacker:compile
 
       - name: Run tests
         run: |
