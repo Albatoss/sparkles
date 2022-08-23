@@ -12,7 +12,7 @@ FactoryBot.define do
     transient do
       with_sparkles { 0 }
     end
-
+# TODO: Replace this with an appropriate dummy slack id
     trait :davidcelis do
       slack_id { "U02JE49NDNY" }
       name { "David Celis" }
