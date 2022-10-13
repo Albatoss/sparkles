@@ -5,9 +5,9 @@
     "slack",
     "sparkles"
   ],
-  "website": "https://sparkles.lol",
-  "repository": "https://github.com/davidcelis/sparkles",
-  "logo": "https://sparkles.lol/sparkles.png",
+  "website": "https://postman.com",
+  "repository": "https://github.com/albatoss/sparkles",
+  "logo": "https://voyager.postman.com/logo/postman-logo-icon-orange.svg",
   "scripts": {
     "dokku": {
       "postdeploy": "bundle exec rake db:migrate"
