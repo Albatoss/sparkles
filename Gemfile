@@ -35,7 +35,7 @@ gem "slack_markdown"
 
 # Use Sidekiq for background job processing
 # gem "sidekiq"
-gem "sidekiq", "~> 7.0"
+gem "sidekiq", "~> 7.1"
 gem "sidekiq-scheduler"
 
 # Paginate through sparkles and the leaderboard with Kaminari
